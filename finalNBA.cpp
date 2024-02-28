@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-
 using namespace std;
+
 
 int qtdTimes = 5;
 
@@ -112,7 +112,7 @@ void preencherTimeNBA(TimeNBA &time)
     getline(cin, time.localizacao.cidade);
 
     cout << "Digite o dia de fundacao do time: ";
-    while (!(cin >> time.dataFundacao.dia))
+    while (!(cin >> time.dataFundacao.dia) || time.dataFundacao.dia < 1 || time.dataFundacao.dia > 31)
     {
         cout << endl;
         cout << "Entrada invalida. Digite novamente: ";
@@ -121,7 +121,7 @@ void preencherTimeNBA(TimeNBA &time)
     }
 
     cout << "Digite o mes de fundacao do time: ";
-    while (!(cin >> time.dataFundacao.mes))
+    while (!(cin >> time.dataFundacao.mes) || time.dataFundacao.mes < 1 || time.dataFundacao.mes > 12)
     {
         cout << endl;
         cout << "Entrada invalida. Digite novamente: ";
@@ -130,7 +130,7 @@ void preencherTimeNBA(TimeNBA &time)
     }
 
     cout << "Digite o ano de fundacao do time: ";
-    while (!(cin >> time.dataFundacao.ano))
+    while (!(cin >> time.dataFundacao.ano) || time.dataFundacao.ano < 1 || time.dataFundacao.ano > 2024)
     {
         cout << endl;
         cout << "Entrada invalida. Digite novamente: ";
@@ -270,12 +270,19 @@ void ordenarTimesData()
     }
 }
 
-void ordenarTimesTitulos()
+
+
+void ordenarTimesTitulos(int x)
 {
     TimeNBA temp;
-    for (int i = 0; i < qtdTimes - 1; i++)
+
+    if(x == 1){
+        return;
+    }
+
+    for (int i = 0; i < x - 1; i++)
     {
-        for (int j = 0; j < qtdTimes - i - 1; j++)
+        for (int j = 0; j < x - i - 1; j++)
         {
             if (vetorTimes[j].titulos.quantidade < vetorTimes[j + 1].titulos.quantidade)
             {
@@ -285,6 +292,7 @@ void ordenarTimesTitulos()
             }
         }
     }
+    ordenarTimesTitulos(x - 1);
 }
 
 void ordenarTimes()
@@ -304,7 +312,7 @@ void ordenarTimes()
     }
     else if (x == 3)
     {
-        ordenarTimesTitulos();
+        ordenarTimesTitulos(qtdTimes);
     }
 }
 
